@@ -1,0 +1,64 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd ">
+
+
+    <context:property-placeholder location="classpath:hibernate.properties"/>
+    <context:component-scan base-package="com.restaurants.restaurants.controllers"/>
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.restaurants.restaurants.db.mariadb.entity"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.ejb.naming_strategy">${hibernate.ejb.naming_strategy}</prop>
+                <!-- <prop key="hibernate.physical_naming_strategy">${hibernate.physical_naming_strategy}</prop>
+                <prop key="hibernate.implicit_naming_strategy">${hibernate.implicit_naming_strategy}</prop>-->
+                <prop key="hibernate.cache.provider_class">${db.hibernate.cache.provider_class}</prop>
+                <prop key="hibernate.cache.region.factory_class">${hibernate.cache.region.factory_class}</prop>
+                <prop key="jadira.usertype.autoRegisterUserTypes">${jadira.usertype.autoRegisterUserTypes}</prop>
+                <prop key="jadira.usertype.databaseZone">${jadira.usertype.databaseZone}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.cache.use_structured_entries">${hibernate.cache.use_structured_entries}</prop>
+
+                <!--useful for to store audit log details when record is deleted-->
+                <prop key="org.hibernate.envers.store_data_at_delete">${org.hibernate.envers.store_data_at_delete}</prop>
+
+                <!--useful for enabling and disabling audit log-->
+                <prop key="hibernate.listeners.envers.autoRegister">${hibernate.listeners.envers.autoRegister}</prop>
+
+                <!--useful for debugging-->
+                <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+
+                <!--connection pool-->
+                <prop key="hibernate.c3p0.min_size">${hibernate.c3p0.min_size}</prop>
+                <prop key="hibernate.c3p0.max_size">${hibernate.c3p0.max_size}</prop>
+                <prop key="hibernate.c3p0.timeout">${hibernate.c3p0.timeout}</prop>
+                <prop key="hibernate.c3p0.max_statements">${hibernate.c3p0.max_statements}</prop>
+                <prop key="hibernate.c3p0.idle_test_period">${hibernate.c3p0.idle_test_period}</prop>
+                <!-- <prop key="hibernate.connection.provider_class">${hibernate.connection.provider_class}</prop> -->
+
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- Support -->
+    <bean id="helper" class="com.restaurants.restaurants.utils.SystemHelper"/>
+
+</beans>
