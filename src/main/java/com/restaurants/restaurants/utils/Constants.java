@@ -66,16 +66,45 @@ public class Constants {
 	public static final String POST_TIME_FORMAT="yyyyMMddHHmmSS";
 	public static final String DD_MM_YYYY = "dd/MM/yyyy";
 
-	public static final String HEADER_LOGIN_ID = "X-com-invictus-login-id";
-	public static final String HEADER_PARTNER_ID = "X-com-invictus-partner-id";
-	public static final String HEADER_AUTH_TOKEN = "X-com-invictus-auth-token";
-	public static final String HEADER_DEVICE_ID = "X-com-invictus-device-id";
-	public static final String HEADER_IP_ADDRESS = "X-com-invictus-ip-address";
-	public static final String HEADER_LATITUDE = "X-com-invictus-latitude";
-	public static final String HEADER_LONGITUDE = "X-com-invictus-longitude";
-	public static final String HEADER_CLASSIFICATION= "X-com-invictus-classification";
-	public static final String HEADER_APP_ID = "X-com-invictus-app-id";
+	public static final String HEADER_RESTAURANT_ID = "X-com-restaurant-id";
+	public static final String HEADER_AUTH_TOKEN = "X-com-auth-token";
+	public static final String HEADER_DEVICE_ID = "X-com-device-id";
+	public static final String HEADER_IP_ADDRESS = "X-com-ip-address";
+	public static final String HEADER_LATITUDE = "X-com-latitude";
+	public static final String HEADER_LONGITUDE = "X-com-longitude";
+	public static final String HEADER_APP_ID = "X-com-app-id";
 	public static final String HEADER_ACCESS_CONTROL = "Access-Control-Allow-Origin";
 	public static final String HEADER_ACCESS_HEADER = "Access-Control-Allow-Headers";
+
+	public static final String NOT_REGISTERED = "NOT_REGISTERED";
+	public static final long INVALID_ID = -1L ;
+	public static final long ROOT_USER = 1L;
+
+	public static final String STATUS_ACTIVE = "A";
+	public static final String STATUS_PENDING = "P";
+	public static final String STATUS_INACTIVE = "I";
+	public static final String STATUS_USED = "U";
+	public static final String STATUS_STALE = "X";
+	public static final String STATUS_LOGOUT = "L";
+	public static final String STATUS_APPROVED = "A";
+	public static final String STATUS_REJECTED = "R";
+	public static final String STATUS_YES = "Y";
+	public static final String STATUS_NO = "N";
+	public static final String STATUS_NEW = "N";
+	public static final String STATUS_IN_PROGRESS = "I";
+	public static final String STATUS_OFFBOARD = "O";
+	public static final String STATUS_READ = "R";
+	public static final String STATUS_REVERSE = "R";
+	public static final String STATUS_SENT = "S";
+	public static final String STATUS_COMPLETED = "C";
+	public static final String STATUS_UNREAD = "U";
+	public static final String STATUS_PAID = "P";
+	public static final String STATUS_UNPAID = "U";
+	public static final String STATUS_CURRENT = "C";
+	public static final String NOT_CURRENT = "N";
+	public static final String STATUS_ALL = "AL";
+
+	public static final String LOGIN_SUCCESS = "S";
+	public static final String LOGIN_FAILED = "F";
 
 }

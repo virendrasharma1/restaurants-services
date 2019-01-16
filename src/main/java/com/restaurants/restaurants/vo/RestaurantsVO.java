@@ -1,10 +1,8 @@
-package com.restaurants.restaurants.bo;
+package com.restaurants.restaurants.vo;
 
-import java.io.Serializable;
+public class RestaurantsVO {
 
-public class RestaurantsBO implements Serializable{
-
-	private String restaurantId;
+	private Long restaurantId;
 	private String email;
 	private String phone;
 	private String name;
@@ -15,11 +13,11 @@ public class RestaurantsBO implements Serializable{
 	private String activeOrNot;
 	private String type;
 
-	public String getRestaurantId() {
+	public Long getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(String restaurantId) {
+	public void setRestaurantId(Long restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 

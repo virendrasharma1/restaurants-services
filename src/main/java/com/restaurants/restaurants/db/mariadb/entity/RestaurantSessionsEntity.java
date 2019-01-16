@@ -37,7 +37,7 @@ public class RestaurantSessionsEntity implements Serializable {
 
 	@EmbeddedId
 
-	@AttributeOverrides({ @AttributeOverride(name = "loginId", column = @Column(name = "login_id", nullable = false) ),
+	@AttributeOverrides({ @AttributeOverride(name = "restaurantId", column = @Column(name = "restaurant_id", nullable = false) ),
 			@AttributeOverride(name = "deviceId", column = @Column(name = "device_id", nullable = false, length = 128) ) })
 	public RestaurantsSessionsPK getId() {
 		return this.id;
@@ -48,14 +48,15 @@ public class RestaurantSessionsEntity implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "login_id", nullable = false, insertable = false, updatable = false)
-	public RestaurantsEntity getAspirantsEntity() {
+	@JoinColumn(name = "restaurant_id", nullable = false, insertable = false, updatable = false)
+	public RestaurantsEntity getRestaurantsEntity() {
 		return restaurantsEntity;
 	}
 
-	public void setAspirantsEntity(RestaurantsEntity aspirantsEntity) {
-		this.restaurantsEntity = aspirantsEntity;
+	public void setRestaurantsEntity(RestaurantsEntity restaurantsEntity) {
+		this.restaurantsEntity = restaurantsEntity;
 	}
+
 
 	@Column(name = "session_token", nullable = false, length = 128)
 	public String getSessionToken() {

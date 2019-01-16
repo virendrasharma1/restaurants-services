@@ -9,7 +9,6 @@ public class LoginHistoriesVO implements Serializable {
 
 	private Long loginId;
 	private LocalDateTime loginDatetime;
-	private String loginClassification;
 	private String ipAddress;
 	private String deviceId;
 	private String latitudeLongitude;
@@ -54,14 +53,6 @@ public class LoginHistoriesVO implements Serializable {
 
 	public void setLatitudeLongitude(String latitudeLongitude) {
 		this.latitudeLongitude = latitudeLongitude;
-	}
-
-	public String getLoginClassification() {
-		return loginClassification;
-	}
-
-	public void setLoginClassification(String loginClassification) {
-		this.loginClassification = loginClassification;
 	}
 
 	public String getLoginStatus() {

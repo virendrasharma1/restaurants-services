@@ -1,13 +1,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd ">
+                           http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
-    <context:property-placeholder location="classpath:hibernate.properties"/>
+    <context:property-placeholder location="classpath:hibernate.properties,
+                                  classpath:log4j.properties"/>
     <context:component-scan base-package="com.restaurants.restaurants.controllers"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
@@ -60,5 +62,32 @@
 
     <!-- Support -->
     <bean id="helper" class="com.restaurants.restaurants.utils.SystemHelper"/>
+    <bean id="dataParser" class="com.restaurants.restaurants.utils.DataParser"/>
+
+    <!-- Converter -->
+    <bean id="restaurantsConverter" class="com.restaurants.restaurants.converters.RestaurantsConverter"/>
+
+    <!-- Transaction -->
+    <bean id="restaurantsTransactions" class="com.restaurants.restaurants.transactions.RestaurantTransactionsImpl"/>
+
+    <!-- Services -->
+    <bean id="restaurantsServices" class="com.restaurants.restaurants.services.RestaurantsServicesImpl"/>
+    <bean id="loginHistoryServices" class="com.restaurants.restaurants.services.LoginHistoriesServicesImpl"/>
+
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="*"
+                     allowed-methods="POST, GET, PUT, OPTIONS, DELETE"
+                     allowed-headers="Origin, X-Requested-With, Content-Type, Accept,
+					 					X-com-restaurant-id, X-com-auth-token, X-com-device-id,
+										X-com-ip-address, X-com-latitude, X-com-longitude,
+										X-com-app-id"
+                     exposed-headers="Content-Type, Accept,
+					 					X-com-restaurant-id, X-com-auth-token, X-com-device-id,
+										X-com-ip-address, X-com-latitude, X-com-longitude,
+										X-com-app-id"
+                     allow-credentials="false"
+                     max-age="4800" />
+    </mvc:cors>
 
 </beans>

@@ -1,6 +1,6 @@
 package com.restaurants.restaurants.services;
 
 
-public abstract class BaseServicesImpl{
+public interface  BaseServicesImpl{
 
 }

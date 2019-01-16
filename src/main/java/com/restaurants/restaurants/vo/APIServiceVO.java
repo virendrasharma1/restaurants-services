@@ -22,7 +22,9 @@ public class APIServiceVO implements Serializable {
 
 	private int appStatusCode= Constants.APP_CODE_SUCCESS;
 	private String payload=null;
+	private List<String> messages = new ArrayList<>();
 	private String apiCall = Constants.EMPTY_STRING;
+	private Class<?> payloadClass = null;
 
 	public int getAppStatusCode() {
 		return appStatusCode;
@@ -41,5 +43,21 @@ public class APIServiceVO implements Serializable {
 	}
 	public String getApiCall() {
 		return apiCall;
+	}
+
+	public Class<?> getPayloadClass() {
+		return payloadClass;
+	}
+
+	public void setPayloadClass(Class<?> payloadClass) {
+		this.payloadClass = payloadClass;
+	}
+
+	public List<String> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(List<String> messages) {
+		this.messages = messages;
 	}
 }
