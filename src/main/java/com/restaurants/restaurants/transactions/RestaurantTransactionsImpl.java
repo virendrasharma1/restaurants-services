@@ -4,7 +4,9 @@ import com.restaurants.restaurants.services.interfaces.RestaurantsServices;
 import com.restaurants.restaurants.transactions.interfaces.RestaurantsTransactions;
 import com.restaurants.restaurants.vo.RestaurantsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RestaurantTransactionsImpl implements RestaurantsTransactions {
 
 	private final RestaurantsServices restaurantsServices;

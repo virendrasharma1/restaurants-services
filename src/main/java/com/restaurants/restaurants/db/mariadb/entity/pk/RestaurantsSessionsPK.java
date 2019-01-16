@@ -21,12 +21,12 @@ public class RestaurantsSessionsPK implements Serializable {
 	}
 
 	@Column(name = "restaurant_id", nullable = false)
-	public Long getLoginId() {
-		return this.restaurantId;
+	public Long getRestaurantId() {
+		return restaurantId;
 	}
 
-	public void setLoginId(Long loginId) {
-		this.restaurantId = loginId;
+	public void setRestaurantId(Long restaurantId) {
+		this.restaurantId = restaurantId;
 	}
 
 	@Column(name = "device_id", nullable = false, length = 128)
@@ -47,7 +47,7 @@ public class RestaurantsSessionsPK implements Serializable {
 			return false;
 		RestaurantsSessionsPK castOther = (RestaurantsSessionsPK) other;
 
-		return (this.getLoginId() == castOther.getLoginId())
+		return (this.restaurantId == castOther.getRestaurantId())
 				&& ((this.getDeviceId() == castOther.getDeviceId()) || (this.getDeviceId() != null
 						&& castOther.getDeviceId() != null && this.getDeviceId().equals(castOther.getDeviceId())));
 	}
@@ -55,7 +55,7 @@ public class RestaurantsSessionsPK implements Serializable {
 	public int hashCode() {
 		Integer result = 17;
 
-		result = 37 * result + this.getLoginId().intValue();
+		result = 37 * result + this.restaurantId.intValue();
 		result = 37 * result + (getDeviceId() == null ? 0 : this.getDeviceId().hashCode());
 		return result;
 	}

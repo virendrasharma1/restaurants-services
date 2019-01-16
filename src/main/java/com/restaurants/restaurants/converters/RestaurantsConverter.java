@@ -3,7 +3,9 @@ package com.restaurants.restaurants.converters;
 
 import com.restaurants.restaurants.bo.RestaurantsBO;
 import com.restaurants.restaurants.vo.RestaurantsVO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RestaurantsConverter {
 	public RestaurantsVO getRestaurantsVO(RestaurantsBO bo) {
 		RestaurantsVO vo = new RestaurantsVO();

@@ -15,25 +15,25 @@ import java.util.List;
 @Repository
 public interface RestaurantsSessionsDao extends JpaRepository<RestaurantSessionsEntity, RestaurantsSessionsPK> {
 
-    @Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.loginId = :loginId AND u.id.deviceId = :deviceId")
-    RestaurantSessionsEntity getById(@Param("loginId") Long loginId, @Param("deviceId") String deviceId);
+    @Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.restaurantId = :restaurantId AND u.id.deviceId = :deviceId")
+    RestaurantSessionsEntity getById(@Param("restaurantId") Long restaurantId, @Param("deviceId") String deviceId);
 
-	@Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.loginId = :loginId AND u.status= '" + Constants.STATUS_ACTIVE + "' ORDER BY u.loginDatetime DESC")
-	List<RestaurantSessionsEntity> getActiveSessions(@Param("loginId") Long loginId);
-
-	@Modifying
-    @Query("UPDATE RestaurantSessionsEntity u SET u.gcmToken = :gcmToken WHERE u.id.loginId = :loginId AND u.id.deviceId = :deviceId")
-    int updateGcmToken(@Param("loginId") Long loginId, @Param("deviceId") String deviceId, @Param("gcmToken") String gcmToken);
+	@Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.restaurantId = :restaurantId AND u.status= '" + Constants.STATUS_ACTIVE + "' ORDER BY u.loginDatetime DESC")
+	List<RestaurantSessionsEntity> getActiveSessions(@Param("restaurantId") Long restaurantId);
 
 	@Modifying
-	@Query("UPDATE RestaurantSessionsEntity u SET u.status = :status, u.logoutOrInvalidationDatetime = :localDateTime  WHERE u.id.loginId = :loginId " +
+    @Query("UPDATE RestaurantSessionsEntity u SET u.gcmToken = :gcmToken WHERE u.id.restaurantId = :restaurantId AND u.id.deviceId = :deviceId")
+    int updateGcmToken(@Param("restaurantId") Long restaurantId, @Param("deviceId") String deviceId, @Param("gcmToken") String gcmToken);
+
+	@Modifying
+	@Query("UPDATE RestaurantSessionsEntity u SET u.status = :status, u.logoutOrInvalidationDatetime = :localDateTime  WHERE u.id.restaurantId = :restaurantId " +
 			"AND u.id.deviceId = :deviceId AND u.status= '" + Constants.STATUS_ACTIVE + "'")
-	int updateStatus(@Param("loginId") Long loginId, @Param("deviceId") String deviceId, @Param("status") String status, @Param("localDateTime") LocalDateTime localDateTime);
+	int updateStatus(@Param("restaurantId") Long restaurantId, @Param("deviceId") String deviceId, @Param("status") String status, @Param("localDateTime") LocalDateTime localDateTime);
 
 	@Modifying
-    @Query("UPDATE RestaurantSessionsEntity u SET u.status = '" + Constants.STATUS_STALE + "', u.logoutOrInvalidationDatetime = :localDateTime WHERE u.id.loginId= :loginId AND u.status= '" + Constants.STATUS_ACTIVE + "'")
-    int invalidateActiveSessions(@Param("loginId") Long loginId, @Param("localDateTime") LocalDateTime localDateTime);
+    @Query("UPDATE RestaurantSessionsEntity u SET u.status = '" + Constants.STATUS_STALE + "', u.logoutOrInvalidationDatetime = :localDateTime WHERE u.id.restaurantId= :restaurantId AND u.status= '" + Constants.STATUS_ACTIVE + "'")
+    int invalidateActiveSessions(@Param("restaurantId") Long restaurantId, @Param("localDateTime") LocalDateTime localDateTime);
 
-	@Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.loginId = :loginId")
-	List<RestaurantSessionsEntity> getAllAspirantSessionsThroughLoginId(@Param("loginId") Long loginId);
+	@Query("SELECT u FROM RestaurantSessionsEntity u WHERE u.id.restaurantId = :restaurantId")
+	List<RestaurantSessionsEntity> getAllAspirantSessionsThroughLoginId(@Param("restaurantId") Long restaurantId);
 }

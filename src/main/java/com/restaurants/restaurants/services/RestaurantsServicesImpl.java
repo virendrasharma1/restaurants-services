@@ -6,7 +6,9 @@ import com.restaurants.restaurants.services.interfaces.RestaurantsServices;
 import com.restaurants.restaurants.utils.SystemHelper;
 import com.restaurants.restaurants.vo.RestaurantsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RestaurantsServicesImpl implements RestaurantsServices {
 	private final RestaurantsDao restaurantsDao;
 	private final SystemHelper helper;

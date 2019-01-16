@@ -58,6 +58,7 @@ public class RestaurantSessionsEntity implements Serializable {
 	}
 
 
+
 	@Column(name = "session_token", nullable = false, length = 128)
 	public String getSessionToken() {
 		return this.sessionToken;

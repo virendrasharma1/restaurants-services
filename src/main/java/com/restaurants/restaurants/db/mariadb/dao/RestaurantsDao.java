@@ -14,8 +14,8 @@ public interface RestaurantsDao extends JpaRepository<RestaurantsEntity, Long> {
 	RestaurantsEntity getById(@Param("restaurantId") Long restaurantId);
 
 	@Query("SELECT a FROM RestaurantsEntity a WHERE a.email = :email")
-	RestaurantsEntity getByEmail(@Param("restaurantId") String email);
+	RestaurantsEntity getByEmail(@Param("email") String email);
 
 	@Query("SELECT a FROM RestaurantsEntity a WHERE a.phone = :phone")
-	RestaurantsEntity getByMobile(@Param("restaurantId") String phone);
+	RestaurantsEntity getByMobile(@Param("phone") String phone);
 }

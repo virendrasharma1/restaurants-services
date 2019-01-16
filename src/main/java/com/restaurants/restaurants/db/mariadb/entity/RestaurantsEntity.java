@@ -1,13 +1,10 @@
 package com.restaurants.restaurants.db.mariadb.entity;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "restaurants")
@@ -27,18 +24,20 @@ public class RestaurantsEntity implements java.io.Serializable {
 	private long createdBy;
 	private Date lastUpdatedTimstamp;
 	private long lastUpdatedBy;
+	private Set<RestaurantSessionsEntity> restaurantSessionsEntity = new HashSet<>(0);
 
 	public RestaurantsEntity() {
 	}
 
 	public RestaurantsEntity(String email, String phone, String name, String passwordEncrypted, String activeOrNot,
-			String type, Date createdTimestamp, long createdBy, Date lastUpdatedTimstamp, long lastUpdatedBy) {
+			String type, Set<RestaurantSessionsEntity> restaurantSessionsEntity, Date createdTimestamp, long createdBy, Date lastUpdatedTimstamp, long lastUpdatedBy) {
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
 		this.passwordEncrypted = passwordEncrypted;
 		this.activeOrNot = activeOrNot;
 		this.type = type;
+		this.restaurantSessionsEntity = restaurantSessionsEntity;
 		this.createdTimestamp = createdTimestamp;
 		this.createdBy = createdBy;
 		this.lastUpdatedTimstamp = lastUpdatedTimstamp;
@@ -46,7 +45,7 @@ public class RestaurantsEntity implements java.io.Serializable {
 	}
 
 	public RestaurantsEntity(String email, String phone, String name, String address, String cityId, String stateId,
-			String passwordEncrypted, String activeOrNot, String type, Date createdTimestamp, long createdBy,
+			String passwordEncrypted, String activeOrNot, String type, Set<RestaurantSessionsEntity> restaurantSessionsEntity, Date createdTimestamp, long createdBy,
 			Date lastUpdatedTimstamp, long lastUpdatedBy) {
 		this.email = email;
 		this.phone = phone;
@@ -57,6 +56,7 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.passwordEncrypted = passwordEncrypted;
 		this.activeOrNot = activeOrNot;
 		this.type = type;
+        this.restaurantSessionsEntity = restaurantSessionsEntity;
 		this.createdTimestamp = createdTimestamp;
 		this.createdBy = createdBy;
 		this.lastUpdatedTimstamp = lastUpdatedTimstamp;
@@ -194,4 +194,12 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantsEntity", cascade = CascadeType.REMOVE)
+    public Set<RestaurantSessionsEntity> getRestaurantSessionsEntity() {
+        return restaurantSessionsEntity;
+    }
+
+    public void setRestaurantSessionsEntity(Set<RestaurantSessionsEntity> restaurantSessionsEntity) {
+        this.restaurantSessionsEntity = restaurantSessionsEntity;
+    }
 }

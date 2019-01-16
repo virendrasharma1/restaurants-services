@@ -60,7 +60,7 @@ public class RestaurantsSessionsServicesImpl implements RestaurantsSessionsServi
         if (obj == null) return null;
 	    RestaurantSessionsEntity entity = (RestaurantSessionsEntity) obj;
         RestaurantsSessionsVO vo = new RestaurantsSessionsVO();
-        vo.setLoginId(entity.getId().getLoginId());
+        vo.setLoginId(entity.getId().getRestaurantId());
         vo.setDeviceId(entity.getId().getDeviceId());
         vo.setSessionToken(entity.getSessionToken());
         vo.setGcmToken(entity.getGcmToken());

@@ -2,7 +2,9 @@ package com.restaurants.restaurants.utils;
 
 
 import com.restaurants.restaurants.exceptions.DataFormatException;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DataParser {
 
     public Long validateId(String id) throws DataFormatException {

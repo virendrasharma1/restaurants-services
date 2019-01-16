@@ -1,5 +1,8 @@
 package com.restaurants.restaurants.services.interfaces;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public interface BaseServices {
 
     boolean doesExistId(Object id);
