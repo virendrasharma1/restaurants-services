@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.restaurants.converters.RestaurantsConverter;
 import com.restaurants.exceptions.*;
-import com.restaurants.restaurants.exceptions.*;
 import com.restaurants.services.interfaces.LoginHistoriesServices;
 import com.restaurants.services.interfaces.RestaurantsSessionsServices;
 import com.restaurants.transactions.interfaces.RestaurantsTransactions;

@@ -5,19 +5,10 @@ import java.util.List;
 
 public class RestaurantItemsVO implements Serializable{
 
-	private Long orderId;
 	private Long itemId;
 	private Long restaurantId;
-	private Double totalCost;
-	private List<OrderDetailsVO> orderDetailsVOS;
-
-	public Long getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
+	private Double itemCost;
+	private String itemName;
 
 	public Long getItemId() {
 		return itemId;
@@ -35,19 +26,18 @@ public class RestaurantItemsVO implements Serializable{
 		this.restaurantId = restaurantId;
 	}
 
-	public Double getTotalCost() {
-		return totalCost;
+	public Double getItemCost() {
+		return itemCost;
 	}
 
-	public void setTotalCost(Double totalCost) {
-		this.totalCost = totalCost;
+	public void setItemCost(Double itemCost) {
+		this.itemCost = itemCost;
+	}
+	public String getItemName() {
+		return itemName;
 	}
 
-	public List<OrderDetailsVO> getOrderDetailsVOS() {
-		return orderDetailsVOS;
-	}
-
-	public void setOrderDetailsVOS(List<OrderDetailsVO> orderDetailsVOS) {
-		this.orderDetailsVOS = orderDetailsVOS;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 }

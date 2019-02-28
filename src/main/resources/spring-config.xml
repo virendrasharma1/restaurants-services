@@ -10,12 +10,12 @@
 
     <context:property-placeholder location="classpath:hibernate.properties,
                                   classpath:log4j.properties"/>
-    <context:component-scan base-package="com.restaurants.restaurants.controllers"/>
+    <context:component-scan base-package="com.restaurants.controllers"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.restaurants.restaurants.db.mariadb.entity"/>
+        <property name="packagesToScan" value="com.restaurants.db.mariadb.entity"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>

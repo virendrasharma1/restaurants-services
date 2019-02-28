@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @SpringBootApplication
-@ComponentScan("com.restaurants.restaurants")
+@ComponentScan("com.restaurants")
 @PropertySource("classpath:hibernate.properties")
 @PropertySource("classpath:log4j.properties")
 public class RestaurantsApplication {
