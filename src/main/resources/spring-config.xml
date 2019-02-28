@@ -61,18 +61,18 @@
     </bean>
 
     <!-- Support -->
-    <bean id="helper" class="com.restaurants.restaurants.utils.SystemHelper"/>
-    <bean id="dataParser" class="com.restaurants.restaurants.utils.DataParser"/>
+    <bean id="helper" class="com.restaurants.utils.SystemHelper"/>
+    <bean id="dataParser" class="com.restaurants.utils.DataParser"/>
 
     <!-- Converter -->
-    <bean id="restaurantsConverter" class="com.restaurants.restaurants.converters.RestaurantsConverter"/>
+    <bean id="restaurantsConverter" class="com.restaurants.converters.RestaurantsConverter"/>
 
     <!-- Transaction -->
-    <bean id="restaurantsTransactions" class="com.restaurants.restaurants.transactions.RestaurantTransactionsImpl"/>
+    <bean id="restaurantsTransactions" class="com.restaurants.transactions.RestaurantTransactionsImpl"/>
 
     <!-- Services -->
-    <bean id="restaurantsServices" class="com.restaurants.restaurants.services.RestaurantsServicesImpl"/>
-    <bean id="loginHistoryServices" class="com.restaurants.restaurants.services.LoginHistoriesServicesImpl"/>
+    <bean id="restaurantsServices" class="com.restaurants.services.RestaurantsServicesImpl"/>
+    <bean id="loginHistoryServices" class="com.restaurants.services.LoginHistoriesServicesImpl"/>
 
     <mvc:cors>
         <mvc:mapping path="/**"
