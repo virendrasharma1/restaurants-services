@@ -1,5 +1,8 @@
 package com.restaurants.vo;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 public class RestaurantsVO {
 
 	private Long restaurantId;
@@ -7,11 +10,11 @@ public class RestaurantsVO {
 	private String phone;
 	private String name;
 	private String address;
-	private String cityId;
-	private String stateId;
 	private String passwordEncrypted;
 	private String activeOrNot;
-	private String type;
+	private LocalDateTime createdTimestamp;
+	private String emailOrPhone;
+	private Long createdBy;
 
 	public Long getRestaurantId() {
 		return restaurantId;
@@ -53,22 +56,6 @@ public class RestaurantsVO {
 		this.address = address;
 	}
 
-	public String getCityId() {
-		return cityId;
-	}
-
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
-	}
-
-	public String getStateId() {
-		return stateId;
-	}
-
-	public void setStateId(String stateId) {
-		this.stateId = stateId;
-	}
-
 	public String getPasswordEncrypted() {
 		return passwordEncrypted;
 	}
@@ -85,11 +72,27 @@ public class RestaurantsVO {
 		this.activeOrNot = activeOrNot;
 	}
 
-	public String getType() {
-		return type;
+	public String getEmailOrPhone() {
+		return emailOrPhone;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setEmailOrPhone(String emailOrPhone) {
+		this.emailOrPhone = emailOrPhone;
+	}
+
+	public LocalDateTime getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
 	}
 }

@@ -1,6 +1,7 @@
 package com.restaurants.controllers;
 
 import com.restaurants.bo.IdValueParams;
+import com.restaurants.bo.NameValuePair;
 import com.restaurants.exceptions.RecordNotFoundException;
 import com.restaurants.bo.RestaurantsBO;
 import com.restaurants.utils.Constants;
@@ -37,16 +38,20 @@ public class RestaurantsController extends BaseController{
 	public ResponseEntity<ResponseVO> register(HttpEntity<RestaurantsBO> httpEntity) {
 
 		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "POST /restaurants/register");
+		HttpHeaders headers = httpEntity.getHeaders();
+		Long restaurantId = Constants.INVALID_ID;
 		try {
 			RestaurantsBO bo = (RestaurantsBO) this.getValidatedBody(httpEntity);
 
 			RestaurantsVO vo = restaurantsConverter.getRestaurantsVO(bo);
 			vo = restaurantsTransactions.register(vo);
+			restaurantId = vo.getRestaurantId();
+			apiServiceVO.setPayload(helper.toJSON(restaurantId));
 
 		} catch (Exception e) {
 			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
 		}
-		return this.getBareResponseEntity(logger, apiServiceVO);
+		return this.getLoginResponseEntity(logger, apiServiceVO, headers, restaurantId);
 	}
 
 	/**
@@ -85,23 +90,23 @@ public class RestaurantsController extends BaseController{
 	@PutMapping(value = "/login",
 			consumes = Constants.APPLICATION_JSON_VALUE,
 			produces = Constants.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseVO> login(HttpEntity<IdValueParams> httpEntity) {
+	public ResponseEntity<ResponseVO> login(HttpEntity<NameValuePair> httpEntity) {
 
 		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "PUT /restaurants/login");
 		Long loginId = Constants.INVALID_ID;
 		HttpHeaders headers = httpEntity.getHeaders();
 		try {
-			IdValueParams bo = (IdValueParams) this.getValidatedBody(httpEntity);
+			NameValuePair bo = (NameValuePair) this.getValidatedBody(httpEntity);
 			String deviceId = this.getDeviceId(httpEntity.getHeaders());
 			String ipAddress = this.getIpAddress(httpEntity.getHeaders());
 
-//			loginId = iamTransactions.login(bo.getName(), bo.getValue(), deviceId, ipAddress);
+			loginId = restaurantsTransactions.login(bo.getName(), bo.getValue(), deviceId, ipAddress);
 			apiServiceVO.setPayload(helper.toJSON(loginId));
 
 		} catch (Exception e) {
 			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
 		}
-		return (!apiServiceVO.getMessages().isEmpty()) ? this.getBareResponseEntity(logger, apiServiceVO) : this.getLoginResponseEntity(logger, apiServiceVO, headers, loginId);
+		return (loginId == Constants.INVALID_ID) ? this.getBareResponseEntity(logger, apiServiceVO) : this.getLoginResponseEntity(logger, apiServiceVO, headers, loginId);
 	}
 
 }

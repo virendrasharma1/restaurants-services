@@ -2,23 +2,26 @@ package com.restaurants.converters;
 
 
 import com.restaurants.bo.RestaurantsBO;
+import com.restaurants.exceptions.DataFormatException;
+import com.restaurants.utils.DataParser;
 import com.restaurants.vo.RestaurantsVO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RestaurantsConverter {
-	public RestaurantsVO getRestaurantsVO(RestaurantsBO bo) {
+	@Autowired
+	protected DataParser dataParser;
+	public RestaurantsVO getRestaurantsVO(RestaurantsBO bo) throws DataFormatException {
 		RestaurantsVO vo = new RestaurantsVO();
-		vo.setRestaurantId(Long.valueOf(bo.getRestaurantId()));
+		vo.setRestaurantId(dataParser.getNullableLongValue(bo.getRestaurantId()));
 		vo.setEmail(bo.getEmail());
 		vo.setPhone(bo.getPhone());
 		vo.setName(bo.getName());
 		vo.setAddress(bo.getAddress());
-		vo.setCityId(bo.getCityId());
-		vo.setStateId(bo.getStateId());
-		vo.setPasswordEncrypted(bo.getPasswordEncrypted());
+		vo.setPasswordEncrypted(bo.getPassword());
 		vo.setActiveOrNot(bo.getActiveOrNot());
-		vo.setType(bo.getType());
+		vo.setEmailOrPhone(bo.getEmailOrPhone());
 		return vo;
 	}
 
@@ -29,11 +32,8 @@ public class RestaurantsConverter {
 		bo.setPhone(vo.getPhone());
 		bo.setName(vo.getName());
 		bo.setAddress(vo.getAddress());
-		bo.setCityId(vo.getCityId());
-		bo.setStateId(vo.getStateId());
 		bo.setPasswordEncrypted(vo.getPasswordEncrypted());
 		bo.setActiveOrNot(vo.getActiveOrNot());
-		bo.setType(vo.getType());
 		return bo;
 	}
 }

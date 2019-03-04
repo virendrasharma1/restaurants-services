@@ -1,5 +1,5 @@
 package com.restaurants.db.mariadb.entity;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -15,42 +15,34 @@ public class RestaurantsEntity implements java.io.Serializable {
 	private String phone;
 	private String name;
 	private String address;
-	private String cityId;
-	private String stateId;
 	private String passwordEncrypted;
 	private String activeOrNot;
-	private String type;
-	private Date createdTimestamp;
-	private long createdBy;
+	private LocalDateTime createdTimestamp;
+	private Long createdBy;
 	private Set<RestaurantSessionsEntity> restaurantSessionsEntity = new HashSet<>(0);
 
 	public RestaurantsEntity() {
 	}
 
-	public RestaurantsEntity(String email, String phone, String name, String passwordEncrypted, String activeOrNot,
-			String type, Set<RestaurantSessionsEntity> restaurantSessionsEntity, Date createdTimestamp, long createdBy) {
+	public RestaurantsEntity(String email, String phone, String name, String passwordEncrypted, String activeOrNot, Set<RestaurantSessionsEntity> restaurantSessionsEntity, LocalDateTime createdTimestamp, Long createdBy) {
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
 		this.passwordEncrypted = passwordEncrypted;
 		this.activeOrNot = activeOrNot;
-		this.type = type;
 		this.restaurantSessionsEntity = restaurantSessionsEntity;
 		this.createdTimestamp = createdTimestamp;
 		this.createdBy = createdBy;
 	}
 
-	public RestaurantsEntity(String email, String phone, String name, String address, String cityId, String stateId,
-			String passwordEncrypted, String activeOrNot, String type, Set<RestaurantSessionsEntity> restaurantSessionsEntity, Date createdTimestamp, long createdBy) {
+	public RestaurantsEntity(String email, String phone, String name, String address,
+			String passwordEncrypted, String activeOrNot, Set<RestaurantSessionsEntity> restaurantSessionsEntity, LocalDateTime createdTimestamp, Long createdBy) {
 		this.email = email;
 		this.phone = phone;
 		this.name = name;
 		this.address = address;
-		this.cityId = cityId;
-		this.stateId = stateId;
 		this.passwordEncrypted = passwordEncrypted;
 		this.activeOrNot = activeOrNot;
-		this.type = type;
         this.restaurantSessionsEntity = restaurantSessionsEntity;
 		this.createdTimestamp = createdTimestamp;
 		this.createdBy = createdBy;
@@ -58,7 +50,6 @@ public class RestaurantsEntity implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "restaurant_id", unique = true, nullable = false)
 	public Long getRestaurantId() {
 		return this.restaurantId;
@@ -68,7 +59,7 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.restaurantId = restaurantId;
 	}
 
-	@Column(name = "email", nullable = false, length = 128)
+	@Column(name = "email", nullable = true, length = 128)
 	public String getEmail() {
 		return this.email;
 	}
@@ -77,7 +68,7 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "phone", nullable = false, length = 16)
+	@Column(name = "phone", nullable = true, length = 16)
 	public String getPhone() {
 		return this.phone;
 	}
@@ -104,24 +95,6 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.address = address;
 	}
 
-	@Column(name = "city_id", length = 6)
-	public String getCityId() {
-		return this.cityId;
-	}
-
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
-	}
-
-	@Column(name = "state_id", length = 6)
-	public String getStateId() {
-		return this.stateId;
-	}
-
-	public void setStateId(String stateId) {
-		this.stateId = stateId;
-	}
-
 	@Column(name = "password_encrypted", nullable = false, length = 256)
 	public String getPasswordEncrypted() {
 		return this.passwordEncrypted;
@@ -140,31 +113,21 @@ public class RestaurantsEntity implements java.io.Serializable {
 		this.activeOrNot = activeOrNot;
 	}
 
-	@Column(name = "type", nullable = false, length = 2)
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_timestamp", nullable = false, length = 19)
-	public Date getCreatedTimestamp() {
+	public LocalDateTime getCreatedTimestamp() {
 		return this.createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 
 	@Column(name = "created_by", nullable = false)
-	public long getCreatedBy() {
+	public Long getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(long createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 

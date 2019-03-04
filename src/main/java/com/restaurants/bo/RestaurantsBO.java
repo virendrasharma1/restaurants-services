@@ -6,14 +6,13 @@ public class RestaurantsBO implements Serializable{
 
 	private String restaurantId;
 	private String email;
+	private String emailOrPhone;
 	private String phone;
 	private String name;
 	private String address;
-	private String cityId;
-	private String stateId;
 	private String passwordEncrypted;
 	private String activeOrNot;
-	private String type;
+	private String password;
 
 	public String getRestaurantId() {
 		return restaurantId;
@@ -55,22 +54,6 @@ public class RestaurantsBO implements Serializable{
 		this.address = address;
 	}
 
-	public String getCityId() {
-		return cityId;
-	}
-
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
-	}
-
-	public String getStateId() {
-		return stateId;
-	}
-
-	public void setStateId(String stateId) {
-		this.stateId = stateId;
-	}
-
 	public String getPasswordEncrypted() {
 		return passwordEncrypted;
 	}
@@ -87,11 +70,19 @@ public class RestaurantsBO implements Serializable{
 		this.activeOrNot = activeOrNot;
 	}
 
-	public String getType() {
-		return type;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmailOrPhone() {
+		return emailOrPhone;
+	}
+
+	public void setEmailOrPhone(String emailOrPhone) {
+		this.emailOrPhone = emailOrPhone;
 	}
 }
