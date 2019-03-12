@@ -9,6 +9,7 @@ import com.restaurants.services.interfaces.RestaurantsSessionsServices;
 import com.restaurants.transactions.interfaces.RestaurantsTransactions;
 import com.restaurants.utils.Constants;
 import com.restaurants.utils.DataParser;
+import com.restaurants.utils.PasswordUtils;
 import com.restaurants.utils.SystemHelper;
 import com.restaurants.vo.APIServiceVO;
 import com.restaurants.vo.LoginHistoriesVO;
@@ -376,7 +377,7 @@ public class BaseController {
 
 	private String getAuthToken(LocalDateTime expiryTime) throws AppErrorException {
 		String key = (UUID.randomUUID().toString() + (Constants.EMPTY_STRING + expiryTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())).replaceAll("-", Constants.EMPTY_STRING);
-		String authToken = "Hello";
+		String authToken = new PasswordUtils().generateHash(key);
 		return authToken;
 	}
 

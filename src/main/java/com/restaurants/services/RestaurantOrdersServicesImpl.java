@@ -61,6 +61,11 @@ public class RestaurantOrdersServicesImpl implements RestaurantOrdersServices {
 	public Object getEntity(Object obj) {
 		RestaurantOrdersVO vo = (RestaurantOrdersVO) obj;
 		RestaurantOrdersEntity entity = (RestaurantOrdersEntity) getById(vo.getOrderId());
+		if (entity == null) {
+			entity = new RestaurantOrdersEntity();
+			entity.setCreatedBy(vo.getRestaurantId());
+			entity.setCreatedTimestamp(helper.getCurrentTime());
+		}
 		entity.setOrderId(vo.getOrderId());
 		entity.setRestaurants(restaurantsDao.getById(vo.getRestaurantId()));
 		entity.setTotalCost(vo.getTotalCost());

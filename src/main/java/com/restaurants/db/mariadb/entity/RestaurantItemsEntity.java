@@ -1,48 +1,40 @@
 package com.restaurants.db.mariadb.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 @Entity
 @Table(name = "restaurant_items")
 public class RestaurantItemsEntity implements java.io.Serializable {
 
 	private Long itemId;
 	private RestaurantsEntity restaurants;
-	private String itemName;
-	private double itemCost;
-	private long createdBy;
-	private Date createdTimestamp;
+	private ItemsEntity itemsEntity;
+	private Double itemCost;
+	private Long createdBy;
+	private LocalDateTime createdTimestamp;
 	private Set<OrderDetailsEntity> OrderDetailsEntityes = new HashSet<OrderDetailsEntity>(0);
 
 	public RestaurantItemsEntity() {
 	}
 
-	public RestaurantItemsEntity(RestaurantsEntity restaurants, String itemName, double itemCost, long createdBy,
-                                 Date createdTimestamp) {
+	public RestaurantItemsEntity(RestaurantsEntity restaurants, ItemsEntity itemsEntity, Double itemCost, Long createdBy,
+								 LocalDateTime createdTimestamp) {
 		this.restaurants = restaurants;
-		this.itemName = itemName;
+		this.itemsEntity = itemsEntity;
 		this.itemCost = itemCost;
 		this.createdBy = createdBy;
 		this.createdTimestamp = createdTimestamp;
 	}
 
-	public RestaurantItemsEntity(RestaurantsEntity restaurants, String itemName, double itemCost, long createdBy,
-                                 Date createdTimestamp, Set<OrderDetailsEntity> OrderDetailsEntityes) {
+	public RestaurantItemsEntity(RestaurantsEntity restaurants, ItemsEntity itemsEntity, Double itemCost, Long createdBy,
+								 LocalDateTime createdTimestamp, Set<OrderDetailsEntity> OrderDetailsEntityes) {
 		this.restaurants = restaurants;
-		this.itemName = itemName;
+		this.itemsEntity = itemsEntity;
 		this.itemCost = itemCost;
 		this.createdBy = createdBy;
 		this.createdTimestamp = createdTimestamp;
@@ -71,40 +63,30 @@ public class RestaurantItemsEntity implements java.io.Serializable {
 		this.restaurants = restaurants;
 	}
 
-	@Column(name = "item_name", nullable = false, length = 128)
-	public String getItemName() {
-		return this.itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
 	@Column(name = "item_cost", nullable = false, precision = 13, scale = 3)
-	public double getItemCost() {
+	public Double getItemCost() {
 		return this.itemCost;
 	}
 
-	public void setItemCost(double itemCost) {
+	public void setItemCost(Double itemCost) {
 		this.itemCost = itemCost;
 	}
 
 	@Column(name = "created_by", nullable = false)
-	public long getCreatedBy() {
+	public Long getCreatedBy() {
 		return this.createdBy;
 	}
 
-	public void setCreatedBy(long createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_timestamp", nullable = false, length = 19)
-	public Date getCreatedTimestamp() {
+	public LocalDateTime getCreatedTimestamp() {
 		return this.createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 
@@ -117,4 +99,15 @@ public class RestaurantItemsEntity implements java.io.Serializable {
 		this.OrderDetailsEntityes = OrderDetailsEntityes;
 	}
 
+	@ManyToOne(cascade= CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+	@JoinColumns({
+			@JoinColumn(name = "item_name", referencedColumnName = "item_name"),
+			@JoinColumn(name = "item_type", referencedColumnName = "item_type")})
+	public ItemsEntity getItemsEntity() {
+		return itemsEntity;
+	}
+
+	public void setItemsEntity(ItemsEntity itemsEntity) {
+		this.itemsEntity = itemsEntity;
+	}
 }

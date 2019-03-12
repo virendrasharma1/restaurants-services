@@ -14,12 +14,12 @@
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="packagesToScan" value="com.restaurants.db.mariadb.entity"/>
-        <property name="jpaVendorAdapter">
+        <property itemName="dataSource" ref="dataSource" />
+        <property itemName="packagesToScan" value="com.restaurants.db.mariadb.entity"/>
+        <property itemName="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>
-        <property name="jpaProperties">
+        <property itemName="jpaProperties">
             <props>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
@@ -57,7 +57,7 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property itemName="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
     <!-- Support -->

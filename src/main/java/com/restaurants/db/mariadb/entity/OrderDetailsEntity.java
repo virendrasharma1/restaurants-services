@@ -2,6 +2,7 @@ package com.restaurants.db.mariadb.entity;
 
 import com.restaurants.db.mariadb.entity.pk.OrderDetailsPK;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -23,13 +24,13 @@ public class OrderDetailsEntity implements java.io.Serializable {
 	private RestaurantOrdersEntity restaurantOrders;
 	private Integer numberOfItems;
 	private Double totalCost;
-	private Date createdTimestamp;
+	private LocalDateTime createdTimestamp;
 
 	public OrderDetailsEntity() {
 	}
 
 	public OrderDetailsEntity(OrderDetailsPK id, RestaurantItemsEntity restaurantItems, RestaurantOrdersEntity restaurantOrders,
-                              Date createdTimestamp) {
+							  LocalDateTime createdTimestamp) {
 		this.id = id;
 		this.restaurantItems = restaurantItems;
 		this.restaurantOrders = restaurantOrders;
@@ -37,7 +38,7 @@ public class OrderDetailsEntity implements java.io.Serializable {
 	}
 
 	public OrderDetailsEntity(OrderDetailsPK id, RestaurantItemsEntity restaurantItems, RestaurantOrdersEntity restaurantOrders,
-                              Integer numberOfItems, Double totalCost, Date createdTimestamp) {
+                              Integer numberOfItems, Double totalCost, LocalDateTime createdTimestamp) {
 		this.id = id;
 		this.restaurantItems = restaurantItems;
 		this.restaurantOrders = restaurantOrders;
@@ -96,13 +97,12 @@ public class OrderDetailsEntity implements java.io.Serializable {
 		this.totalCost = totalCost;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_timestamp", nullable = false, length = 19)
-	public Date getCreatedTimestamp() {
+	public LocalDateTime getCreatedTimestamp() {
 		return this.createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 

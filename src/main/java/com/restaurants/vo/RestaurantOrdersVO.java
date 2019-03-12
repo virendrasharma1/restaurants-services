@@ -2,6 +2,7 @@ package com.restaurants.vo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RestaurantOrdersVO implements Serializable{
@@ -9,7 +10,7 @@ public class RestaurantOrdersVO implements Serializable{
 	private Long orderId;
 	private Long restaurantId;
 	private Double totalCost;
-	private Timestamp orderedTime;
+	private LocalDateTime orderedTime;
 	private List<OrderDetailsVO> orderDetailsVOS;
 
 	public Long getOrderId() {
@@ -44,11 +45,11 @@ public class RestaurantOrdersVO implements Serializable{
 		this.orderDetailsVOS = orderDetailsVOS;
 	}
 
-	public Timestamp getOrderedTime() {
+	public LocalDateTime getOrderedTime() {
 		return orderedTime;
 	}
 
-	public void setOrderedTime(Timestamp orderedTime) {
+	public void setOrderedTime(LocalDateTime orderedTime) {
 		this.orderedTime = orderedTime;
 	}
 }

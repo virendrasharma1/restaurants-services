@@ -68,7 +68,7 @@ public class OrderDetailsServicesImpl implements OrderDetailsServices {
 	@Override
 	public Object getEntity(Object obj) {
 		OrderDetailsVO vo = (OrderDetailsVO) obj;
-		OrderDetailsEntity entity = (OrderDetailsEntity) getById(vo.getId().getOrderId(), vo.getId().getItemId());
+		OrderDetailsEntity entity = getById(vo.getId().getOrderId(), vo.getId().getItemId());
 		if (entity == null) {
 			entity = new OrderDetailsEntity();
 			OrderDetailsPK pk = new OrderDetailsPK(vo.getId().getOrderId(), vo.getId().getItemId());
@@ -81,11 +81,11 @@ public class OrderDetailsServicesImpl implements OrderDetailsServices {
 
 	@Override
 	public List<OrderDetailsVO> getRestaurantOrderDetailsByOrderId(Long orderId) {
-		List<OrderDetailsVO> Vos = new ArrayList<>();
+		List<OrderDetailsVO> vos = new ArrayList<>();
 		List<OrderDetailsEntity> entities = orderDetailsDao.getRestaurantOrderDetailsByOrderId(orderId);
 		for (OrderDetailsEntity entity: entities ) {
-			Vos.add((OrderDetailsVO) getVO(entity));
+			vos.add((OrderDetailsVO) getVO(entity));
 		}
-		return Vos;
+		return vos;
 	}
 }

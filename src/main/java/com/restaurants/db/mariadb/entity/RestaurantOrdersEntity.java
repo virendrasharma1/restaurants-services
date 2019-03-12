@@ -1,6 +1,7 @@
 package com.restaurants.db.mariadb.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -21,15 +22,15 @@ public class RestaurantOrdersEntity implements java.io.Serializable {
     private RestaurantsEntity restaurants;
     private Double totalCost;
     private Long createdBy;
-    private Timestamp createdTimestamp;
-    private Timestamp orderedTime;
+    private LocalDateTime createdTimestamp;
+    private LocalDateTime orderedTime;
     private Set<OrderDetailsEntity> orderDetailses = new HashSet<OrderDetailsEntity>(0);
 
     public RestaurantOrdersEntity() {
     }
 
     public RestaurantOrdersEntity(Long orderId, RestaurantsEntity restaurants, Double totalCost, Long createdBy,
-                                  Timestamp createdTimestamp, Timestamp orderedTime) {
+                                  LocalDateTime createdTimestamp, LocalDateTime orderedTime) {
         this.orderId = orderId;
         this.restaurants = restaurants;
         this.totalCost = totalCost;
@@ -39,7 +40,7 @@ public class RestaurantOrdersEntity implements java.io.Serializable {
     }
 
     public RestaurantOrdersEntity(Long orderId, RestaurantsEntity restaurants, Double totalCost, Long createdBy,
-                                  Timestamp createdTimestamp, Timestamp orderedTime, Set<OrderDetailsEntity> orderDetailses) {
+                                  LocalDateTime createdTimestamp, LocalDateTime orderedTime, Set<OrderDetailsEntity> orderDetailses) {
         this.orderId = orderId;
         this.restaurants = restaurants;
         this.totalCost = totalCost;
@@ -89,20 +90,20 @@ public class RestaurantOrdersEntity implements java.io.Serializable {
     }
 
     @Column(name = "created_timestamp", nullable = false, length = 19)
-    public Timestamp getCreatedTimestamp() {
+    public LocalDateTime getCreatedTimestamp() {
         return this.createdTimestamp;
     }
 
-    public void setCreatedTimestamp(Timestamp createdTimestamp) {
+    public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
         this.createdTimestamp = createdTimestamp;
     }
 
     @Column(name = "ordered_time", nullable = false, length = 19)
-    public Timestamp getOrderedTime() {
+    public LocalDateTime getOrderedTime() {
         return orderedTime;
     }
 
-    public void setOrderedTime(Timestamp orderedTime) {
+    public void setOrderedTime(LocalDateTime orderedTime) {
         this.orderedTime = orderedTime;
     }
 

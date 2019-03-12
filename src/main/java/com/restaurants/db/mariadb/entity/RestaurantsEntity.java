@@ -20,6 +20,7 @@ public class RestaurantsEntity implements java.io.Serializable {
 	private LocalDateTime createdTimestamp;
 	private Long createdBy;
 	private Set<RestaurantSessionsEntity> restaurantSessionsEntity = new HashSet<>(0);
+	private Set<RestaurantItemsEntity> restaurantItemsEntity = new HashSet<>(0);
 
 	public RestaurantsEntity() {
 	}
@@ -139,4 +140,13 @@ public class RestaurantsEntity implements java.io.Serializable {
     public void setRestaurantSessionsEntity(Set<RestaurantSessionsEntity> restaurantSessionsEntity) {
         this.restaurantSessionsEntity = restaurantSessionsEntity;
     }
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurants", cascade = CascadeType.REMOVE)
+	public Set<RestaurantItemsEntity> getRestaurantItemsEntity() {
+		return restaurantItemsEntity;
+	}
+
+	public void setRestaurantItemsEntity(Set<RestaurantItemsEntity> restaurantItemsEntity) {
+		this.restaurantItemsEntity = restaurantItemsEntity;
+	}
 }

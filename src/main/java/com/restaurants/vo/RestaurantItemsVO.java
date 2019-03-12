@@ -1,6 +1,7 @@
 package com.restaurants.vo;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RestaurantItemsVO implements Serializable{
@@ -9,6 +10,12 @@ public class RestaurantItemsVO implements Serializable{
 	private Long restaurantId;
 	private Double itemCost;
 	private String itemName;
+	private String itemType;
+	private LocalDateTime createdTimestamp;
+	private Long createdBy;
+
+	public RestaurantItemsVO() {
+	}
 
 	public Long getItemId() {
 		return itemId;
@@ -39,5 +46,29 @@ public class RestaurantItemsVO implements Serializable{
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+
+	public LocalDateTime getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public Long getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Long createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 }
