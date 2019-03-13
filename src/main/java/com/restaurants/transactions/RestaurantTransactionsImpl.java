@@ -20,15 +20,17 @@ public class RestaurantTransactionsImpl implements RestaurantsTransactions {
 
     private final RestaurantsServices restaurantsServices;
     private final RestaurantOrdersServices restaurantOrdersServices;
+    private final RestaurantsSessionsServices restaurantsSessionsServices;
     private final RestaurantItemsServices restaurantItemsServices;
     private final OrderDetailsServices orderDetailsServices;
     private final ItemsServices itemsServices;
     private final SystemHelper helper;
 
     @Autowired
-    public RestaurantTransactionsImpl(RestaurantsServices restaurantsServices, RestaurantOrdersServices restaurantOrdersServices, RestaurantItemsServices restaurantItemsServices, OrderDetailsServices orderDetailsServices, ItemsServices itemsServices, SystemHelper helper) {
+    public RestaurantTransactionsImpl(RestaurantsServices restaurantsServices, RestaurantOrdersServices restaurantOrdersServices, RestaurantsSessionsServices restaurantsSessionsServices, RestaurantItemsServices restaurantItemsServices, OrderDetailsServices orderDetailsServices, ItemsServices itemsServices, SystemHelper helper) {
         this.restaurantsServices = restaurantsServices;
         this.restaurantOrdersServices = restaurantOrdersServices;
+        this.restaurantsSessionsServices = restaurantsSessionsServices;
         this.restaurantItemsServices = restaurantItemsServices;
         this.orderDetailsServices = orderDetailsServices;
         this.itemsServices = itemsServices;
@@ -113,5 +115,15 @@ public class RestaurantTransactionsImpl implements RestaurantsTransactions {
             orderDetailsServices.save(orderDetailsVO);
         }
         return restaurantOrdersVO;
+    }
+
+    @Override
+    public List<RestaurantOrdersVO> getRestaurantOrders(Long restaurantId) {
+        return restaurantOrdersServices.getRestaurantOrders(restaurantId);
+    }
+
+    @Override
+    public void logout(Long loginId, String deviceId) {
+        restaurantsSessionsServices.logout(loginId, deviceId);
     }
 }

@@ -10,6 +10,9 @@ import com.restaurants.vo.RestaurantOrdersVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class RestaurantOrdersServicesImpl implements RestaurantOrdersServices {
 	private final RestaurantOrdersDao restaurantOrdersDao;
@@ -71,5 +74,15 @@ public class RestaurantOrdersServicesImpl implements RestaurantOrdersServices {
 		entity.setTotalCost(vo.getTotalCost());
 		entity.setOrderedTime(vo.getOrderedTime());
 		return entity;
+	}
+
+	@Override
+	public List<RestaurantOrdersVO> getRestaurantOrders(Long restaurantId) {
+		List<RestaurantOrdersVO> vos = new ArrayList<>();
+		List<RestaurantOrdersEntity> entities = restaurantOrdersDao.getRestaurantOrders(restaurantId);
+		for (RestaurantOrdersEntity entity: entities) {
+			vos.add((RestaurantOrdersVO) getVO(entity));
+		}
+		return vos;
 	}
 }

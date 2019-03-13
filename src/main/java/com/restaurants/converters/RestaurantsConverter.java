@@ -4,6 +4,7 @@ package com.restaurants.converters;
 import com.restaurants.bo.*;
 import com.restaurants.exceptions.DataFormatException;
 import com.restaurants.utils.DataParser;
+import com.restaurants.utils.SystemHelper;
 import com.restaurants.vo.*;
 import com.restaurants.vo.Ids.OrderDetailsId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.List;
 public class RestaurantsConverter {
 	@Autowired
 	protected DataParser dataParser;
+	@Autowired
+	protected SystemHelper helper;
 	public RestaurantsVO getRestaurantsVO(RestaurantsBO bo) throws DataFormatException {
 		RestaurantsVO vo = new RestaurantsVO();
 		vo.setRestaurantId(dataParser.getNullableLongValue(bo.getRestaurantId()));
@@ -104,8 +107,44 @@ public class RestaurantsConverter {
 		OrderDetailsVO vo = new OrderDetailsVO();
 		vo.setNumberOfItems(dataParser.getIntegerValue(bo.getNumberOfItems()));
 		vo.setTotalCost(dataParser.getDoubleValue(bo.getTotalCost()));
-		OrderDetailsId id = new OrderDetailsId(dataParser.getLongValue(bo.getOrderId()), dataParser.getLongValue(bo.getItemId()));
+		OrderDetailsId id = new OrderDetailsId(dataParser.getNullableId(bo.getOrderId()), dataParser.getNullableId(bo.getItemId()));
 		vo.setId(id);
 		return vo;
+	}
+
+    public List<RestaurantOrdersBO> getRestaurantOrderBOList(List<RestaurantOrdersVO> vos) {
+		List<RestaurantOrdersBO> list = new ArrayList<>();
+		for (RestaurantOrdersVO vo : vos) {
+			list.add(getRestaurantsOrderBO(vo));
+		}
+		return list;
+    }
+
+	private RestaurantOrdersBO getRestaurantsOrderBO(RestaurantOrdersVO vo) {
+		RestaurantOrdersBO bo = new RestaurantOrdersBO();
+		bo.setOrderId(dataParser.getLongStringValue(vo.getOrderId()));
+		bo.setTotalCost(dataParser.getDouble2StringValue(vo.getTotalCost()));
+		bo.setRestaurantId(dataParser.getLongStringValue(vo.getRestaurantId()));
+		bo.setOrderedTime(helper.convertTimeToString(vo.getOrderedTime()));
+		bo.setOrderDetailsBOS(getOrderDetailsBOList(vo.getOrderDetailsVOS()));
+		return bo;
+	}
+
+	private List<OrderDetailsBO> getOrderDetailsBOList(List<OrderDetailsVO> orderDetailsVOS) {
+		List<OrderDetailsBO> list = new ArrayList<>();
+		for (OrderDetailsVO vo : orderDetailsVOS) {
+			list.add(getOrderDetailsBO(vo));
+		}
+		return list;
+	}
+
+	private OrderDetailsBO getOrderDetailsBO(OrderDetailsVO vo) {
+		OrderDetailsBO bo = new OrderDetailsBO();
+		bo.setItemId(dataParser.getLongStringValue(vo.getId().getItemId()));
+		bo.setNumberOfItems(dataParser.getIntegerStringValue(vo.getNumberOfItems()));
+		bo.setTotalCost(dataParser.getDouble2StringValue(vo.getTotalCost()));
+		bo.setItemName(vo.getItemName());
+		bo.setItemType(vo.getItemType());
+		return bo;
 	}
 }

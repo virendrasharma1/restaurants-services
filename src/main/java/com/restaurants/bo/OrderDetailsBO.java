@@ -8,6 +8,8 @@ public class OrderDetailsBO implements Serializable{
 	private String itemId;
 	private String numberOfItems;
 	private String totalCost;
+	private String itemName;
+	private String itemType;
 
 	public String getOrderId() {
 		return orderId;
@@ -39,5 +41,21 @@ public class OrderDetailsBO implements Serializable{
 
 	public void setTotalCost(String totalCost) {
 		this.totalCost = totalCost;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 }

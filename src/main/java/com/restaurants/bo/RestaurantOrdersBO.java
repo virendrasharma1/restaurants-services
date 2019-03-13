@@ -6,9 +6,9 @@ import java.util.List;
 public class RestaurantOrdersBO implements Serializable{
 
 	private String orderId;
-	private String itemId;
 	private String restaurantId;
 	private String totalCost;
+	private String orderedTime;
 	private List<OrderDetailsBO> orderDetailsBOS;
 
 	public String getOrderId() {
@@ -17,14 +17,6 @@ public class RestaurantOrdersBO implements Serializable{
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
-	}
-
-	public String getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
 	}
 
 	public String getRestaurantId() {
@@ -49,5 +41,13 @@ public class RestaurantOrdersBO implements Serializable{
 
 	public void setOrderDetailsBOS(List<OrderDetailsBO> orderDetailsBOS) {
 		this.orderDetailsBOS = orderDetailsBOS;
+	}
+
+	public String getOrderedTime() {
+		return orderedTime;
+	}
+
+	public void setOrderedTime(String orderedTime) {
+		this.orderedTime = orderedTime;
 	}
 }

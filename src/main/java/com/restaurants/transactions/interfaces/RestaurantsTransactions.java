@@ -29,4 +29,8 @@ public interface RestaurantsTransactions {
     List<RestaurantItemsVO> getItemNamesOfRestaurantOnTheBasisOfType(Long restaurantId, String type);
 
     RestaurantOrdersVO saveRestaurantOrder(RestaurantOrdersVO vo);
+
+    List<RestaurantOrdersVO> getRestaurantOrders(Long restaurantId);
+
+    void logout(Long loginId, String deviceId);
 }

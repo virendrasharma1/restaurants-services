@@ -261,4 +261,52 @@ public class RestaurantsController extends BaseController{
 		return this.getAuthenticatedResponseEntity(logger, apiServiceVO, headers);
 	}
 
+	/**
+	 * ID 		: PIR_001_1141<p>
+	 * Path 	: /restaurants/orders<p>
+	 * Type 	: GET<p>
+	 * Produces : application/json<p>
+	 */
+	@GetMapping(value = "/orders",
+			produces = Constants.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResponseVO> getMyOrders(HttpEntity<?> httpEntity) {
+
+		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/orders");
+		HttpHeaders headers = httpEntity.getHeaders();
+		try {
+			Long restaurantId = this.authenticateRequest(httpEntity.getHeaders());
+			List<RestaurantOrdersVO> vo = restaurantsTransactions.getRestaurantOrders(restaurantId);
+			List<RestaurantOrdersBO> bo = restaurantsConverter.getRestaurantOrderBOList(vo);
+
+			apiServiceVO.setPayload(helper.toJSON(bo));
+
+		} catch (Exception e) {
+			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
+		}
+		return this.getAuthenticatedResponseEntity(logger, apiServiceVO, headers);
+	}
+
+	/**
+	 * ID 		: PIR_001_1363<p>
+	 * Path 	: /iam/logout<p>
+	 * Type 	: GET<p>
+	 * Produces : application/json<p>
+	 */
+	@GetMapping(value = "/logout",
+			produces = Constants.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResponseVO> logout(HttpEntity<?> httpEntity) {
+
+		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /iam/logout");
+		try {
+			HttpHeaders headers = httpEntity.getHeaders();
+			Long loginId = this.authenticateRequest(headers);
+
+			restaurantsTransactions.logout(loginId, this.getDeviceId(headers));
+
+		} catch (Exception e) {
+			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
+		}
+		return this.getBareResponseEntity(logger, apiServiceVO);
+	}
+
 }

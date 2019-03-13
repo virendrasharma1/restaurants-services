@@ -1,12 +1,12 @@
 package com.restaurants.services;
 
 import com.restaurants.db.mariadb.dao.OrderDetailsDao;
+import com.restaurants.db.mariadb.dao.RestaurantItemsDao;
 import com.restaurants.db.mariadb.dao.RestaurantOrdersDao;
 import com.restaurants.db.mariadb.dao.RestaurantsDao;
 import com.restaurants.db.mariadb.entity.OrderDetailsEntity;
 import com.restaurants.db.mariadb.entity.pk.OrderDetailsPK;
 import com.restaurants.services.interfaces.OrderDetailsServices;
-import com.restaurants.services.interfaces.RestaurantOrdersServices;
 import com.restaurants.utils.SystemHelper;
 import com.restaurants.vo.Ids.OrderDetailsId;
 import com.restaurants.vo.OrderDetailsVO;
@@ -20,12 +20,16 @@ import java.util.List;
 public class OrderDetailsServicesImpl implements OrderDetailsServices {
 	private final OrderDetailsDao orderDetailsDao;
 	private final RestaurantsDao restaurantsDao;
+	private final RestaurantOrdersDao restaurantOrdersDao;
+	private final RestaurantItemsDao restaurantItemsDao;
 	private final SystemHelper helper;
 
 	@Autowired
-	public OrderDetailsServicesImpl(OrderDetailsDao orderDetailsDao, RestaurantsDao restaurantsDao, SystemHelper helper) {
+	public OrderDetailsServicesImpl(OrderDetailsDao orderDetailsDao, RestaurantsDao restaurantsDao, RestaurantOrdersDao restaurantOrdersDao, RestaurantItemsDao restaurantItemsDao, SystemHelper helper) {
 		this.orderDetailsDao = orderDetailsDao;
 		this.restaurantsDao = restaurantsDao;
+		this.restaurantOrdersDao = restaurantOrdersDao;
+		this.restaurantItemsDao = restaurantItemsDao;
 		this.helper = helper;
 	}
 
@@ -62,6 +66,8 @@ public class OrderDetailsServicesImpl implements OrderDetailsServices {
 		vo.setId(id);
 		vo.setNumberOfItems(entity.getNumberOfItems());
 		vo.setTotalCost(entity.getTotalCost());
+		vo.setItemName(entity.getRestaurantItems().getItemsEntity().getId().getItemName());
+		vo.setItemType(entity.getRestaurantItems().getItemsEntity().getId().getItemType());
 		return vo;
 	}
 
@@ -72,9 +78,12 @@ public class OrderDetailsServicesImpl implements OrderDetailsServices {
 		if (entity == null) {
 			entity = new OrderDetailsEntity();
 			OrderDetailsPK pk = new OrderDetailsPK(vo.getId().getOrderId(), vo.getId().getItemId());
+			entity.setCreatedTimestamp(helper.getCurrentTime());
 			entity.setId(pk);
 		}
 		entity.setNumberOfItems(vo.getNumberOfItems());
+		entity.setRestaurantItems(restaurantItemsDao.getById(vo.getId().getItemId()));
+		entity.setRestaurantOrders(restaurantOrdersDao.getById(vo.getId().getOrderId()));
 		entity.setTotalCost(vo.getTotalCost());
 		return entity;
 	}

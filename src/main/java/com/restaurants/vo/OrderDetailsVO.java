@@ -9,6 +9,8 @@ public class OrderDetailsVO implements Serializable{
 	private OrderDetailsId id;
 	private Integer numberOfItems;
 	private Double totalCost;
+	private String itemName;
+	private String itemType;
 
 	public OrderDetailsId getId() {
 		return id;
@@ -32,5 +34,21 @@ public class OrderDetailsVO implements Serializable{
 
 	public void setTotalCost(Double totalCost) {
 		this.totalCost = totalCost;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public String getItemType() {
+		return itemType;
+	}
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 }
