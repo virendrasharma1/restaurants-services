@@ -74,8 +74,13 @@ public class ItemsServicesImpl implements ItemsServices {
 	}
 
 	@Override
-	public List<GlobalItemsVO> getAllItemTypes() {
-		List<ItemsEntity> entities = itemsDao.getAllItemTypes();
+	public List<GlobalItemsVO> getAllItemTypes(String search) {
+		List<ItemsEntity> entities;
+		if (!helper.isEmpty(search)) {
+			entities = itemsDao.getItemTypes(search);
+		} else {
+			entities = itemsDao.getAllItemTypes();
+		}
 		List<GlobalItemsVO> vos = new ArrayList<>();
 		for (ItemsEntity entity: entities) {
 			vos.add((GlobalItemsVO) getVO(entity));
@@ -84,8 +89,8 @@ public class ItemsServicesImpl implements ItemsServices {
 	}
 
 	@Override
-	public List<GlobalItemsVO> getItemNamesWithGivenType(String type) {
-		List<ItemsEntity> entities = itemsDao.getItemNamesWithGivenType(type);
+	public List<GlobalItemsVO> getItemNamesWithGivenType(String type, String itemName) {
+		List<ItemsEntity> entities = itemsDao.getItemNamesWithGivenType(type, helper.getLikeQueryString(itemName));
 		List<GlobalItemsVO> vos = new ArrayList<>();
 		for (ItemsEntity entity: entities) {
 			vos.add((GlobalItemsVO) getVO(entity));

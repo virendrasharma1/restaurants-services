@@ -15,9 +15,12 @@ public interface ItemsDao extends JpaRepository<ItemsEntity, ItemsPK> {
 	@Query("SELECT a FROM ItemsEntity a WHERE a.id.itemName = :itemName AND a.id.itemType = :itemType")
 	ItemsEntity getById(@Param("itemName") String itemName, @Param("itemType") String itemType);
 
+	@Query("SELECT a FROM ItemsEntity a WHERE a.id.itemType LIKE :itemType GROUP BY a.id.itemType")
+	List<ItemsEntity> getItemTypes(@Param("itemType") String itemType);
+
 	@Query("SELECT a FROM ItemsEntity a GROUP BY a.id.itemType")
 	List<ItemsEntity> getAllItemTypes();
 
-	@Query("SELECT DISTINCT a FROM ItemsEntity a WHERE a.id.itemType = :itemType")
-	List<ItemsEntity> getItemNamesWithGivenType(@Param("itemType") String itemType);
+	@Query("SELECT DISTINCT a FROM ItemsEntity a WHERE a.id.itemType = :itemType AND a.id.itemName LIKE :itemName")
+	List<ItemsEntity> getItemNamesWithGivenType(@Param("itemType") String itemType, @Param("itemName") String itemName);
 }

@@ -20,9 +20,9 @@ public interface RestaurantsTransactions {
 
     RestaurantItemsVO saveRestaurantItem(RestaurantItemsVO vo);
 
-    List<GlobalItemsVO> getAllItemTypes();
+    List<GlobalItemsVO> getAllItemTypes(String search);
 
-	List<GlobalItemsVO> getItemNamesWithGivenType(String type);
+	List<GlobalItemsVO> getItemNamesWithGivenType(String type, String itemName);
 
     List<RestaurantItemsVO> getAllItemTypesOfRestaurant(Long restaurantId);
 
@@ -33,4 +33,6 @@ public interface RestaurantsTransactions {
     List<RestaurantOrdersVO> getRestaurantOrders(Long restaurantId);
 
     void logout(Long loginId, String deviceId);
+
+    RestaurantsVO getRestaurantProfile(Long restaurantId);
 }

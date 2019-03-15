@@ -81,13 +81,13 @@ public class RestaurantTransactionsImpl implements RestaurantsTransactions {
     }
 
     @Override
-    public List<GlobalItemsVO> getAllItemTypes() {
-        return itemsServices.getAllItemTypes();
+    public List<GlobalItemsVO> getAllItemTypes(String search) {
+        return itemsServices.getAllItemTypes(search);
     }
 
     @Override
-    public List<GlobalItemsVO> getItemNamesWithGivenType(String type) {
-        return itemsServices.getItemNamesWithGivenType(type);
+    public List<GlobalItemsVO> getItemNamesWithGivenType(String type, String itemName) {
+        return itemsServices.getItemNamesWithGivenType(type, itemName);
     }
 
     @Override
@@ -125,5 +125,10 @@ public class RestaurantTransactionsImpl implements RestaurantsTransactions {
     @Override
     public void logout(Long loginId, String deviceId) {
         restaurantsSessionsServices.logout(loginId, deviceId);
+    }
+
+    @Override
+    public RestaurantsVO getRestaurantProfile(Long restaurantId) {
+        return (RestaurantsVO) restaurantsServices.getById(restaurantId);
     }
 }

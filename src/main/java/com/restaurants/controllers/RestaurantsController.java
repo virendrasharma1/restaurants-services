@@ -64,7 +64,6 @@ public class RestaurantsController extends BaseController{
 
 		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/exists?id=" + id);
 		HttpHeaders headers = httpEntity.getHeaders();
-		Long loginId = Constants.INVALID_ID;
 		try {
 			RestaurantsVO vo = restaurantsTransactions.ifAlreadyRegistered(id);
 			if (vo == null) { throw new RecordNotFoundException(id); }
@@ -75,7 +74,7 @@ public class RestaurantsController extends BaseController{
 		} catch (Exception e) {
 			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
 		}
-		return this.getLoginResponseEntity(logger, apiServiceVO, headers, loginId);
+		return this.getBareResponseEntity(logger, apiServiceVO);
 	}
 
 
@@ -87,14 +86,41 @@ public class RestaurantsController extends BaseController{
 	 */
 	@GetMapping(value = "/all/items/types",
 			produces = Constants.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseVO> getAllItemTypes(HttpEntity<?> httpEntity) {
+	public ResponseEntity<ResponseVO> getAllItemTypes(HttpEntity<?> httpEntity, @QueryParam("search") String search) {
 
-		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/all/items/types");
+		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/all/items/types?search=" + search);
 		HttpHeaders headers = httpEntity.getHeaders();
 		try {
-			List<GlobalItemsVO> vo = restaurantsTransactions.getAllItemTypes();
+			List<GlobalItemsVO> vo = restaurantsTransactions.getAllItemTypes(search);
 
 			List<GlobalItmesBO> bo = restaurantsConverter.getGlobalItemsListBO(vo);
+
+			apiServiceVO.setPayload(helper.toJSON(bo));
+
+		} catch (Exception e) {
+			this.handleAppExceptions(logger, e, apiServiceVO, httpEntity);
+		}
+		return this.getAuthenticatedResponseEntity(logger, apiServiceVO, headers);
+	}
+
+	/**
+	 * ID 		: PIR_001_1141<p>
+	 * Path 	: /restaurants/profile<p>
+	 * Type 	: GET<p>
+	 * Produces : application/json<p>
+	 */
+	@GetMapping(value = "/profile",
+			produces = Constants.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResponseVO> getRestaurantProfile(HttpEntity<?> httpEntity) {
+
+		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/profile");
+		HttpHeaders headers = httpEntity.getHeaders();
+		try {
+			Long restaurantId = this.authenticateRequest(httpEntity.getHeaders());
+
+			RestaurantsVO vo = restaurantsTransactions.getRestaurantProfile(restaurantId);
+
+			RestaurantsBO bo = restaurantsConverter.getRestaurantsBO(vo);
 
 			apiServiceVO.setPayload(helper.toJSON(bo));
 
@@ -112,12 +138,12 @@ public class RestaurantsController extends BaseController{
 	 */
 	@GetMapping(value = "/all/item/names",
 			produces = Constants.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseVO> getItemsNames(HttpEntity<?> httpEntity, @QueryParam("type") String type) {
+	public ResponseEntity<ResponseVO> getItemsNames(HttpEntity<?> httpEntity, @QueryParam("itemType") String itemType, @QueryParam("itemName") String itemName) {
 
-		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/all/item/names?type=" + type);
+		APIServiceVO apiServiceVO = this.initializeResponse(logger, httpEntity, "GET /restaurants/all/item/names?type=" + itemType + "&itemName=" + itemName);
 		HttpHeaders headers = httpEntity.getHeaders();
 		try {
-			List<GlobalItemsVO> vo = restaurantsTransactions.getItemNamesWithGivenType(type);
+			List<GlobalItemsVO> vo = restaurantsTransactions.getItemNamesWithGivenType(itemType, itemName);
 			List<GlobalItmesBO> bo = restaurantsConverter.getGlobalItemsListBO(vo);
 			apiServiceVO.setPayload(helper.toJSON(bo));
 
