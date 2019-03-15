@@ -24,6 +24,19 @@ public class RestaurantsController extends BaseController{
 	private static final Logger logger = Logger.getLogger(RestaurantsController.class);
 
 	/**
+	 * Path 		: /restaurants/ping<p>
+	 * Type 		: GET<p>
+	 * Produces     : application/json<p>
+	 */
+	@GetMapping(value = "/ping",
+			produces = Constants.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResponseVO> pingAPI(HttpEntity<?> httpEntity) {
+
+		APIServiceVO apiServiceVO = new APIServiceVO();
+		apiServiceVO.setPayload(helper.toJSON((helper.getCurrentTimeString())));
+		return this.getBareResponseEntityWithoutLog(apiServiceVO);
+	}
+	/**
 	 * ID 		: PIR_001_6695<p>
 	 * Path 	: /restaurants/register<p>
 	 * Type 	: POST<p>
