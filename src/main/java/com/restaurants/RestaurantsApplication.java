@@ -6,6 +6,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -18,7 +20,11 @@ import java.util.Collections;
 @PropertySource("classpath:hibernate.properties")
 @PropertySource("classpath:log4j.properties")
 public class RestaurantsApplication {
-
+	@RequestMapping("/")
+	@ResponseBody
+	String home() {
+		return "Hello World!";
+	}
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(RestaurantsApplication.class, args);
 	}
