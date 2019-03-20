@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/restaurants-all-0.0.1-SNAPSHOT.jar
+web: java %JAVA_OPTS% -jar build/libs/restaurants-all-0.0.1-SNAPSHOT.jar --port %PORT% target\*.war

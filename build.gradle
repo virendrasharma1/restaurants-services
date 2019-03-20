@@ -20,25 +20,28 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.restaurants'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
+
 //create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'com.restaurants.RestaurantsApplication'
-    }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+//task fatJar(type: Jar) {
+//    manifest {
+//        attributes 'Implementation-Title': 'Gradle Jar File Example',
+//                'Implementation-Version': version,
+//                'Main-Class': 'com.restaurants.RestaurantsApplication'
+//    }
+//    baseName = project.name + '-all'
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
+
 repositories {
 	mavenCentral()
 }
 
-
-
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
+    // https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner
+    compile group: 'com.github.jsimone', name: 'webapp-runner', version: '7.0.22'
+
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile group: 'log4j', name: 'log4j', version: '1.2.17' // https://mvnrepository.com/artifact/log4j/log4j
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2' // https://mvnrepository.com/artifact/com.google.code.gson/gson
@@ -52,3 +55,16 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
 }
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
