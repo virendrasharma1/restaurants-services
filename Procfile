@@ -1,1 +1,1 @@
-worker: java -jar build/libs/restaurants-0.0.1-SNAPSHOT.jar
+worker: java -jar build/libs/restaurants-0.0.1-SNAPSHOT.jar  -Dserver.port=$PORT
